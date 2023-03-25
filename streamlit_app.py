@@ -1,38 +1,46 @@
 from collections import namedtuple
-import altair as alt
-import math
-import pandas as pd
 import streamlit as st
+import openai
 
 """
-# Welcome to Streamlit!
+# Welcome to Canvas Discussion Reply Generation!
 
-Edit `/streamlit_app.py` to customize this app to your heart's desire :heart:
+This is a project made for the [AI Club](https://aiclub.sdsu.edu/) at SDSU.
 
-If you have any questions, checkout our [documentation](https://docs.streamlit.io) and [community
-forums](https://discuss.streamlit.io).
+The purpose of this project is for research purposes to test the capabilities of natural language processing. Neither the project members nor the AI Club are responsible for malevolent usage.
 
-In the meantime, below is an example of what you can do with just a few lines of code:
+The model utilized within this project comes a fine tuned version of the base Curie model by OpenAI, meaning that the usage pricing is 	$0.0120 / 1K tokens.
+Users must create an OpenAI account and provide their OpenAI API Key down below, in which their usage of the Canvas Discussion Post Generation model will be charged accordingly.
+
 """
 
+user_key = st.text_input('Provide your OpenAI API Key here', type="password")
 
-with st.echo(code_location='below'):
-    total_points = st.slider("Number of points in spiral", 1, 5000, 2000)
-    num_turns = st.slider("Number of turns in spiral", 1, 100, 9)
+user_prompt = st.text_input('What is the Canvas Discussion Prompt that you wish to generate an experimental reply for?')
 
-    Point = namedtuple('Point', 'x y')
-    data = []
+token_number = st.slider('Select the n to underumber of tokens that you wish to generate (think word count). Read abovestand pricing.', min_value=50, max_value=500, value=150, step=1)
 
-    points_per_turn = total_points / num_turns
+if st.button("Generate", disabled=((user_key is None) or (user_prompt is None) or (token_number is None))):
+    openai.api_key = user_key
 
-    for curr_point_num in range(total_points):
-        curr_turn, i = divmod(curr_point_num, points_per_turn)
-        angle = (curr_turn + 1) * 2 * math.pi * i / points_per_turn
-        radius = curr_point_num / total_points
-        x = radius * math.cos(angle)
-        y = radius * math.sin(angle)
-        data.append(Point(x, y))
+    user_prompt = user_prompt + "\n\n###\n\n"
 
-    st.altair_chart(alt.Chart(pd.DataFrame(data), height=500, width=500)
-        .mark_circle(color='#0068c9', opacity=0.5)
-        .encode(x='x:Q', y='y:Q'))
+    reply = openai.Completion.create(
+    model="curie:ft-personal-2023-03-12-09-46-53",
+    prompt= user_prompt,
+    max_tokens=token_number)
+
+    modified = reply['choices'][0]['text']
+
+    last = -1
+    for i in range(len(modified) - 1, -1, -1):
+        if modified[i] == '.':
+            last = i
+            break 
+
+    if last != -1:
+        modified = reply['choices'][0]['text'][0:last+1].replace("\n", "" )
+    else:
+        modified = reply['choices'][0]['text'].replace("\n", "" )
+
+    st.write(modified)
