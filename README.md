@@ -1,4 +1,4 @@
-Canvas Discussion Reply Generation!
+# Canvas Discussion Reply Generation!
 
 The purpose of this project is for research purposes to test the capabilities of natural language processing.
 
