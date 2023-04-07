@@ -23,10 +23,11 @@ token_number = st.slider('Select the number of tokens that you wish to generate 
 if st.button("Generate", disabled=((user_key is None) or (user_prompt is None) or (token_number is None))):
     openai.api_key = user_key
 
-    user_prompt = user_prompt + "\n\n###\n\n"
+    user_prompt = user_prompt + " ->"
 
+    # old mode with less fine-tune data curie:ft-personal-2023-03-12-09-46-53
     reply = openai.Completion.create(
-    model="curie:ft-personal-2023-03-12-09-46-53",
+    model="curie:ft-personal-2023-04-06-22-16-08",
     prompt= user_prompt,
     max_tokens=token_number)
 
