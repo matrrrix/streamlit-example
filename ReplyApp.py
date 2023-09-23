@@ -21,7 +21,7 @@ user_prompt = st.text_input('What is the Canvas Discussion Prompt?')
 token_number = st.slider('Select the number of tokens that you wish to generate (think word count). Read above for pricing.', min_value=50, max_value=500, value=150, step=1)
 
 if st.button("Generate", disabled=((user_prompt is None) or (token_number is None))):
-    openai.api_key = api_key
+    openai.api_key = st.secrets["api_key"]
 
     user_prompt = user_prompt + " ->"
 
