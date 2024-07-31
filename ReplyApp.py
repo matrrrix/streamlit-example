@@ -28,8 +28,8 @@ if st.button("Generate", disabled=((user_prompt is None) or (token_number is Non
     reply = openai.completions.create(
     model="curie:ft-personal-2023-04-06-22-16-08",
     prompt= user_prompt,
-    max_tokens=token_number,
-    temperature=0)
+    max_tokens=token_number
+    )
 
     modified = reply['choices'][0]['text']
 
