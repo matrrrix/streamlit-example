@@ -25,11 +25,10 @@ if st.button("Generate", disabled=((user_prompt is None) or (token_number is Non
     user_prompt = user_prompt + " ->"
 
     # old mode with less fine-tune data curie:ft-personal-2023-03-12-09-46-53
-    reply = openai.completions.create(
+    reply = openai.Completion.create(
     model="curie:ft-personal-2023-04-06-22-16-08",
     prompt= user_prompt,
-    max_tokens=token_number
-    )
+    max_tokens=token_number)
 
     modified = reply['choices'][0]['text']
 
