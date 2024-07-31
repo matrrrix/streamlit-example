@@ -7,7 +7,7 @@ import openai
 
 This is a project made for the [AI Club](https://aiclub.sdsu.edu/) at SDSU.
 
-NOTE: OpenAI's Curie model was deprecated on January 4th, 2024. This means the fine-tuned version used for this project is no longer active. Suck that AI startups!
+NOTE: OpenAI's Curie model was deprecated on January 4th, 2024. This means the fine-tuned version used for this project is no longer active. Git owned AI startups!
 
 The purpose of this project is for research purposes to test the capabilities of natural language processing. Neither the project members nor the AI Club are responsible for malevolent usage.
 
