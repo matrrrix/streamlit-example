@@ -7,6 +7,8 @@ import openai
 
 This is a project made for the [AI Club](https://aiclub.sdsu.edu/) at SDSU.
 
+NOTE: The OpenAI's Curie model was deprecated on January 4th, 2024. This means the fine-tuned version used for this project is no longer active. Suck that AI startups!
+
 The purpose of this project is for research purposes to test the capabilities of natural language processing. Neither the project members nor the AI Club are responsible for malevolent usage.
 
 The model utilized within this project comes a fine tuned version of the base Curie model by OpenAI, meaning that the usage pricing is **\$0.0120 / 1K tokens**. Usage of the model in this app is tied directly to my OpenAI account, so I have put a hard limit of **\$0.5** of usage per month. If an error occurs when attempting to generate a reponse, this likely means that this monthly limit has been reached.
